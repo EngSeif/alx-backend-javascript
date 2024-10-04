@@ -4,48 +4,48 @@ const colorSymbol = Symbol('color');
 
 export default class Car {
   constructor(brand, motor, color) {
-    this[brandSymbol] = brand;
-    this[motorSymbol] = motor;
-    this[colorSymbol] = color;
+    this.brand = brand;
+    this.motor = motor;
+    this.color = color;
   }
 
   get brand() {
-    return this[brandSymbol];
+    return this._brand;
   }
 
   set brand(brand) {
     if (typeof brand === 'string') {
-      this[brandSymbol] = brand;
+      this._brand = brand;
     } else {
       throw new TypeError('Brand must be a string');
     }
   }
 
   get motor() {
-    return this[motorSymbol];
+    return this._motor;
   }
 
   set motor(motor) {
     if (typeof motor === 'string') {
-      this[motorSymbol] = motor;
+      this._motor = motor;
     } else {
       throw new TypeError('Motor must be a string');
     }
   }
 
   get color() {
-    return this[colorSymbol];
+    return this._color;
   }
 
   set color(color) {
     if (typeof color === 'string') {
-      this[colorSymbol] = color;
+      this._color = color;
     } else {
       throw new TypeError('Color must be a string');
     }
   }
 
   cloneCar() {
-    return new this.constructor(this[brandSymbol], this[motorSymbol], this[colorSymbol]);
+    return new this.constructor(this._brand, this._motor, this._color);
   }
 }
