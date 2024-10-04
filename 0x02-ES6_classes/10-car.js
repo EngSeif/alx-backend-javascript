@@ -1,51 +1,22 @@
-const brandSymbol = Symbol('brand');
-const motorSymbol = Symbol('motor');
-const colorSymbol = Symbol('color');
+// 10-car.js
 
-export default class Car {
+class Car {
   constructor(brand, motor, color) {
-    this.brand = brand;
-    this.motor = motor;
-    this.color = color;
+    this._brand = brand;
+    this._motor = motor;
+    this._color = color;
   }
 
-  get brand() {
-    return this._brand;
-  }
-
-  set brand(brand) {
-    if (typeof brand === 'string') {
-      this._brand = brand;
-    } else {
-      throw new TypeError('Brand must be a string');
-    }
-  }
-
-  get motor() {
-    return this._motor;
-  }
-
-  set motor(motor) {
-    if (typeof motor === 'string') {
-      this._motor = motor;
-    } else {
-      throw new TypeError('Motor must be a string');
-    }
-  }
-
-  get color() {
-    return this._color;
-  }
-
-  set color(color) {
-    if (typeof color === 'string') {
-      this._color = color;
-    } else {
-      throw new TypeError('Color must be a string');
-    }
+  // Getter for species - allows returning the correct constructor when cloning
+  static get [Symbol.species]() {
+    return this;
   }
 
   cloneCar() {
-    return new this.constructor(this._brand, this._motor, this._color);
+    // Use the species constructor to create a new instance
+    const SpeciesConstructor = this.constructor[Symbol.species];
+    return new SpeciesConstructor(this._brand, this._motor, this._color);
   }
 }
+
+export default Car;
